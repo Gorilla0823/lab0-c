@@ -158,16 +158,17 @@ bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
     list_ele_t *tmp = q->head;
     q->head = q->head->next;
 
-    size_t length = strlen(tmp->value) + 1;
+    size_t length = strlen(tmp->value);
     // Bufsize smaller than length-1
-    // MUst check again
     if (bufsize < length) {
         return false;
     }
-    sp = malloc(length);
-
     strncpy(sp, tmp->value, length);
-    free(sp);
+    sp[length] = '\0';
+
+    free(tmp->value);
+    free(tmp);
+    q->size--;
     return true;
 }
 
@@ -200,6 +201,14 @@ void q_reverse(queue_t *q)
 {
     /* TODO: You need to write the code for this function */
     /* TODO: Remove the above comment when you are about to implement. */
+    if (!q) {
+        return;
+    }
+
+    /*list_ele_t *current = q->head->next;
+    list_ele_t *reverse = q->head;
+    while (current)
+    }*/
 }
 
 /*
