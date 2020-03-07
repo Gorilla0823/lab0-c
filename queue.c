@@ -151,8 +151,23 @@ bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
 {
     /* TODO: You need to fix up this code. */
     /* TODO: Remove the above comment when you are about to implement. */
+    if (!q || !q->head) {
+        return false;
+    }
+
+    list_ele_t *tmp = q->head;
     q->head = q->head->next;
 
+    size_t length = strlen(tmp->value) + 1;
+    // Bufsize smaller than length-1
+    // MUst check again
+    if (bufsize < length) {
+        return false;
+    }
+    sp = malloc(length);
+
+    strncpy(sp, tmp->value, length);
+    free(sp);
     return true;
 }
 
