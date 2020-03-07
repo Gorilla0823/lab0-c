@@ -75,6 +75,10 @@ static bool do_log_cmd(int argc, char *argv[]);
 static bool do_time_cmd(int argc, char *argv[]);
 static bool do_comment_cmd(int argc, char *argv[]);
 
+bool do_new(int argc, char *argv[]);
+bool do_free(int argc, char *argv[]);
+bool do_hello(int argc, char *argv[]);
+
 static void init_in();
 
 static bool push_file(char *fname);
@@ -89,7 +93,8 @@ void init_cmd()
     param_list = NULL;
     err_cnt = 0;
     quit_flag = false;
-
+    // add_cmd("new", do_new, "                | Create new queue");
+    // add_cmd("free", do_free, "                | Delete queue");
     add_cmd("help", do_help_cmd, "                | Show documentation");
     add_cmd("option", do_option_cmd,
             " [name val]     | Display or set options");
@@ -99,6 +104,9 @@ void init_cmd()
     add_cmd("log", do_log_cmd, " file           | Copy output to file");
     add_cmd("time", do_time_cmd, " cmd arg ...    | Time command execution");
     add_cmd("#", do_comment_cmd, " ...            | Display comment");
+
+    add_cmd("hello", do_hello, "                | Print hello message");
+
     add_param("simulation", (int *) &simulation, "Start/Stop simulation mode",
               NULL);
     add_param("verbose", &verblevel, "Verbosity level", NULL);
@@ -629,4 +637,17 @@ bool run_console(char *infile_name)
     while (!cmd_done())
         cmd_select(0, NULL, NULL, NULL, NULL);
     return err_cnt == 0;
+}
+bool do_hello(int argc, char *argv[])
+{
+    return (bool) printf("Hello, World\n");
+}
+
+bool do_new(int argc, char *argv[])
+{
+    return (bool) printf("NEWWWWW\n");
+}
+bool do_free(int argc, char *argv[])
+{
+    return (bool) printf("FREEEEE\n");
 }
