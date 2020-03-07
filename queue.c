@@ -201,14 +201,19 @@ void q_reverse(queue_t *q)
 {
     /* TODO: You need to write the code for this function */
     /* TODO: Remove the above comment when you are about to implement. */
-    if (!q) {
+    if (!q || !q->head->next) {
         return;
     }
 
-    /*list_ele_t *current = q->head->next;
-    list_ele_t *reverse = q->head;
-    while (current)
-    }*/
+    list_ele_t *curr = q->head, *prev = NULL, *next = NULL;
+    q->tail = q->head;
+    while (curr) {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    q->head = prev;
 }
 
 /*
