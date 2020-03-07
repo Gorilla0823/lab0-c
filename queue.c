@@ -28,18 +28,20 @@ void q_free(queue_t *q)
 {
     /* TODO: How about freeing the list elements and the strings? */
     /* Free queue structure */
-    if (!q)
+    if (!q) {
         return;
-
-    /*list_ele_t *now = q->head->next;
-    list_ele_t *pre = q->head;
-    while ( !now ){
-        q->head = now ;
-        q->
-
     }
 
-    q->size = 0;*/
+    list_ele_t *tmp = NULL;
+    while (q->head) {
+        tmp = q->head;
+        q->head = q->head->next;
+        free(tmp->value);
+        free(tmp);
+    }
+    q->tail = NULL;
+    q->head = NULL;
+    q->size = 0;
     free(q);
 }
 
@@ -183,7 +185,7 @@ int q_size(queue_t *q)
     /* Remember: It should operate in O(1) time */
     /* TODO: Remove the above comment when you are about to implement. */
 
-    // If queue is null
+    // If queue is NULL
     if (!q) {
         return 0;
     }
