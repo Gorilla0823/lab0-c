@@ -69,7 +69,8 @@ bool q_insert_head(queue_t *q, char *s)
     /*If there is no enough space to allocate ,
     malloc will return non-null pointer or null pointer*/
     if (newh && str) {
-        strncpy(str, s, length + 1);
+        strncpy(str, s, length);
+        str[length] = '\0';
         newh->value = str;
         newh->next = q->head;
         q->head = newh;
@@ -119,7 +120,8 @@ bool q_insert_tail(queue_t *q, char *s)
         return false;
     }*/
     if (newt && str) {
-        strncpy(str, s, length + 1);
+        strncpy(str, s, length);
+        str[length] = '\0';
         newt->value = str;
         // if queue is empty
         if (!q->head) {
@@ -221,55 +223,58 @@ void q_reverse(queue_t *q)
  * No effect if q is NULL or empty. In addition, if q has only one
  * element, do nothing.
  */
-/*list_ele_t* merge (list_ele_t* l1, list_ele_t* l2) {
+list_ele_t *merge(list_ele_t *l1, list_ele_t *l2)
+{
     // merge with recursive
-        if(!l2)
-            return l1;
-        if(!l1)
-            return l2;
-        if(l1->value<l2->value) {
-            l1->next = merge(l1->next, l2);
-            return l1;
-        }
-        else {
-            l2->next = merge(l1, l2->next);
-            return l2;
-        }
+    if (!l2)
+        return l1;
+    if (!l1)
+        return l2;
+    if (strcmp(l1->value, l2->value) < 0) {
+        l1->next = merge(l1->next, l2);
+        return l1;
+    } else {
+        l2->next = merge(l1, l2->next);
+        return l2;
     }
+}
 
-list_ele_t* mergeSortList (list_ele_t* head) {
-        // merge sort
-        if(!head || !head->next) {
-            return head;
-        }
-        list_ele_t* fast = head->next;
-        list_ele_t* slow = head;
-        // split list
-        while(fast && fast->next) {
-            slow = slow->next;
-            fast = fast->next->next;
-        }
-        fast = slow->next;
-        slow->next = NULL;
-        // sort each list
-        list_ele_t* l1 = mergeSortList(head);
-        list_ele_t* l2 = mergeSortList(fast);
-        // merge sorted l1 and sorted l2
-        return merge(l1, l2);
-}*/
+list_ele_t *mergeSortList(list_ele_t *head)
+{
+    // merge sort
+    if (!head || !head->next) {
+        return head;
+    }
+    list_ele_t *fast = head->next;
+    list_ele_t *slow = head;
+    // split list
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    fast = slow->next;
+    slow->next = NULL;
+    // sort each list
+    list_ele_t *l1 = mergeSortList(head);
+    list_ele_t *l2 = mergeSortList(fast);
+    // merge sorted l1 and sorted l2
+    return merge(l1, l2);
+}
 void q_sort(queue_t *q)
 {
     /* TODO: You need to write the code for this function */
     /* TODO: Remove the above comment when you are about to implement. */
-    if (!q || q->size == 1) {
+    if (!q || q->size <= 1) {
         return;
     }
     /*list_ele_t *tmp =  malloc(sizeof(list_ele_t));
     list_ele_t *q = tmp;
     list_ele_t*/
 
-    /*q->head = mergeSortList(q->head);
-    while (q->tail->next) {
-        q->tail = q->tail->next;
-    }*/
+    q->head = mergeSortList(q->head);
+    list_ele_t *tmp = q->head;
+    while (tmp->next) {
+        tmp = tmp->next;
+    }
+    q->tail = tmp;
 }

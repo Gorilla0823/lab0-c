@@ -82,3 +82,4 @@ void measure(int64_t *before_ticks,
         }
     }
 }
+

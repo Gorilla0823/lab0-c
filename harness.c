@@ -8,7 +8,6 @@
 #include <unistd.h>
 
 #include "report.h"
-
 /* Our program needs to use regular malloc/free */
 #define INTERNAL 1
 #include "harness.h"
