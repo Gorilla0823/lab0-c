@@ -6,12 +6,12 @@ ih aardvark_bear_dolphin_gerbil_jaguar 5
 it meerkat_panda_squirrel_vulture_wolf 5
 rh aardvark_bear_dolphin_gerbil_jaguar
 reverse
-rh meerkat_panda_squirrel_vulture_wolf
+rhq
 option length 30
 rh meerkat_panda_squirrel_vulture
 reverse
 option length 28
-rh aardvark_bear_dolphin_gerbil
+rhq
 option length 21
 rh aardvark_bear_dolphin
 reverse
