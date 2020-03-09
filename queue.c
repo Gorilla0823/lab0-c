@@ -3,8 +3,8 @@
 #include <string.h>
 
 #include "harness.h"
+#include "natsort/strnatcmp.c"
 #include "queue.h"
-
 /*
  * Create empty queue.
  * Return NULL if could not allocate space.
@@ -238,7 +238,7 @@ list_ele_t *merge(list_ele_t *l1, list_ele_t *l2)
         return l1;
     if (!l1)
         return l2;
-    if (strcmp(l1->value, l2->value) < 0) {
+    if (strnatcmp(l1->value, l2->value) < 0) {
         l1->next = merge(l1->next, l2);
         return l1;
     } else {
@@ -263,6 +263,7 @@ list_ele_t *mergeSortList(list_ele_t *head)
     fast = slow->next;
     slow->next = NULL;
     // sort each list
+    // for()
     list_ele_t *l1 = mergeSortList(head);
     list_ele_t *l2 = mergeSortList(fast);
     // merge sorted l1 and sorted l2
@@ -275,12 +276,11 @@ void q_sort(queue_t *q)
     if (!q || q->size <= 1) {
         return;
     }
-    /*list_ele_t *tmp =  malloc(sizeof(list_ele_t));
-    list_ele_t *q = tmp;
-    list_ele_t*/
 
     q->head = mergeSortList(q->head);
     list_ele_t *tmp = q->head;
+
+    // Move to q->tail in order to set q->tail
     while (tmp->next) {
         tmp = tmp->next;
     }
