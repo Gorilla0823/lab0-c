@@ -231,7 +231,7 @@ void q_reverse(queue_t *q)
  * No effect if q is NULL or empty. In addition, if q has only one
  * element, do nothing.
  */
-list_ele_t *merge(list_ele_t *l1, list_ele_t *l2)
+static list_ele_t *merge(list_ele_t *l1, list_ele_t *l2)
 {
     // merge with recursive
     if (!l2)
@@ -247,7 +247,7 @@ list_ele_t *merge(list_ele_t *l1, list_ele_t *l2)
     }
 }
 
-list_ele_t *mergeSortList(list_ele_t *head)
+static list_ele_t *mergeSortList(list_ele_t *head)
 {
     // merge sort
     if (!head || !head->next) {
