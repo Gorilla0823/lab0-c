@@ -194,10 +194,7 @@ int q_size(queue_t *q)
     /* TODO: Remove the above comment when you are about to implement. */
 
     // If queue is NULL
-    if (!q) {
-        return 0;
-    }
-    return q->size;
+    return q ? q->size : 0;
 }
 
 /*
