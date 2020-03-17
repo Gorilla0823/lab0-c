@@ -246,7 +246,7 @@ static list_ele_t *merge(list_ele_t *l1, list_ele_t *l2)
     list_ele_t **p = &temp;
 
     while (l1 && l2) {
-        if (strnatcmp(l1->value, l2->value) <= 0) {
+        if (strnatcmp(l1->value, l2->value) < 0) {
             *p = l1;
             l1 = l1->next;
         } else {
